@@ -1,0 +1,4 @@
+2026-05-10 16:35:00,833 - ERROR - Error al crear cliente: El nombre no puede estar vacío.
+2026-05-10 16:35:27,536 - ERROR - Error al crear cliente: El nombre no puede estar vacío.
+2026-05-10 16:35:37,872 - ERROR - Error al crear cliente: El nombre no puede estar vacío.
+2026-05-10 16:36:15,568 - ERROR - Error al crear cliente: El nombre no puede estar vacío.
