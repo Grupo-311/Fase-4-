@@ -11,7 +11,7 @@ from abc import ABC, abstractmethod
 
 # Configuración de logs centralizada
 logging.basicConfig(filename="logs.txt", level=logging.INFO,
-                    format="%(asctime)s - %(levelname)s - %(message)s, encoding='utf-8'")
+                    format="%(asctime)s - %(levelname)s - %(message)s", encoding='utf-8')
 
 class SistemaFJError(Exception):
     pass
@@ -103,15 +103,34 @@ class Proyector(Servicio):
     def mostrar_info(self):
         return self.describir()
     
+class Asesoria(Servicio):
+    def __init__(self, id_entidad, nombre, tarifa_base, especialidad):
+        super().__init__(id_entidad, nombre, tarifa_base)
+        self.especialidad= especialidad
+        
+    def calcular_costo(self, descuento=0, impuesto=0.19):
+        return self.tarifa_base -(self.tarifa_base*descuento)+ (self.tarifa_base*impuesto)
+    
+    def describir(self):
+        return f'Especialidad: {self.especialidad}'
+    
+    def mostrar_info(self):
+        return self.describir()
+        
+            
 # ==========================================
 # ENCAPSULACIÓN ESTRICTA
 # ==========================================
     
-class Cliente:
+class Cliente(EntidadGeneral):
     #Clase Cliente: representa a un usuario del sistema.
-    #Aplica encapsulación y validaciones de datos personales.
 
-    def __init__(self, nombre: str, correo: str, telefono: str):
+    def __init__(self, id_entidad, nombre: str, documento, correo: str, telefono: str):
+        super().__init__(id_entidad)
+        self._nombre = nombre
+        self.documento= documento
+        self._correo = correo
+        self._telefono = telefono
         try:
             if not nombre or len(nombre.strip()) == 0:
                 raise ValueError("El nombre no puede estar vacío.")
@@ -120,13 +139,10 @@ class Cliente:
             if not telefono.isdigit():
                 raise ValueError("Teléfono inválido. Debe contener solo números.")
 
-            self._nombre = nombre
-            self._correo = correo
-            self._telefono = telefono
-
         except ValueError as e:
             logging.error(f"Error al crear cliente: {e}")
             raise
+        
 
     # Getters y setters (encapsulación)
     def get_nombre(self):
@@ -159,13 +175,14 @@ class Cliente:
     def __str__(self):
         return f"Cliente: {self._nombre}, Correo: {self._correo}, Teléfono: {self._telefono}"
 
-
+    def mostrar_info(self):
+            return self.__str__() 
 # Lista global de clientes
 lista_clientes = []
 
-def registrar_cliente(nombre, correo, telefono):
+def registrar_cliente(id_entidad, nombre, documento, correo, telefono):
     try:
-        cliente = Cliente(nombre, correo, telefono)
+        cliente = Cliente(id_entidad, nombre, documento, correo, telefono)
         lista_clientes.append(cliente)
         return cliente
     except Exception as e:
