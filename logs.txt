@@ -2,3 +2,13 @@
 2026-05-10 16:35:27,536 - ERROR - Error al crear cliente: El nombre no puede estar vac韔.
 2026-05-10 16:35:37,872 - ERROR - Error al crear cliente: El nombre no puede estar vac韔.
 2026-05-10 16:36:15,568 - ERROR - Error al crear cliente: El nombre no puede estar vac韔.
+2026-05-12 18:22:07,150 - ERROR - Error al crear cliente: Correo inv谩lido. Debe contener '@' y '.'
+2026-05-12 18:22:07,151 - INFO - Reserva confirmada: Ana G贸mez reserv贸 Sala Magna por 3 d铆as. Total: $535,500.00
+2026-05-12 18:22:07,151 - INFO - Intento de transacci贸n finalizado. Estado de la reserva: Confirmada
+2026-05-12 18:22:07,152 - ERROR - Fall贸 reserva de Luis P茅rez: El servicio 'Sala Magna' ya est谩 ocupado.
+2026-05-12 18:22:07,152 - INFO - Intento de transacci贸n finalizado. Estado de la reserva: Fallida
+2026-05-12 18:22:07,152 - ERROR - Fall贸 reserva de Ana G贸mez: La duraci贸n de la reserva debe ser de m铆nimo 1 d铆a.
+2026-05-12 18:22:07,152 - INFO - Intento de transacci贸n finalizado. Estado de la reserva: Fallida
+2026-05-12 18:22:07,153 - INFO - Reserva cancelada. El servicio Sala Magna vuelve a estar disponible
+2026-05-12 18:22:07,153 - INFO - Reserva confirmada: Luis P茅rez reserv贸 Sala Magna por 1 d铆as. Total: $178,500.00
+2026-05-12 18:22:07,153 - INFO - Intento de transacci贸n finalizado. Estado de la reserva: Confirmada
