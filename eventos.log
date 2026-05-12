@@ -1,0 +1,7 @@
+2026-05-10 16:15:56,656 - ERROR - Fallo creación de cliente: El documento de Carlos Ruíz debe ser numérico.
+2026-05-10 16:15:56,659 - INFO - Reserva Exitosa: Ana Gómez alquiló Canon EOS R5 por 3 días. Total: $535,500.00
+2026-05-10 16:15:56,660 - INFO - Intento de reserva finalizado. Estado actual: Confirmada
+2026-05-10 16:15:56,660 - ERROR - Error procesando reserva: El equipo Canon EOS R5 está ocupado.
+2026-05-10 16:15:56,661 - INFO - Intento de reserva finalizado. Estado actual: Pendiente
+2026-05-10 16:15:56,667 - ERROR - Error procesando reserva: La tarifa base de Camara Dañada debe ser mayor a 0.
+2026-05-10 16:15:56,668 - INFO - Intento de reserva finalizado. Estado actual: Pendiente
