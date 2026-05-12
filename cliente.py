@@ -7,16 +7,109 @@ avanzado de excepciones.
 """
 
 import logging
+from abc import ABC, abstractmethod
 
 # Configuración de logs centralizada
-logging.basicConfig(filename="logs.txt", level=logging.ERROR,
-                    format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(filename="logs.txt", level=logging.INFO,
+                    format="%(asctime)s - %(levelname)s - %(message)s, encoding='utf-8'")
 
+class SistemaFJError(Exception):
+    pass
+
+class DatosInvalidosError(SistemaFJError):
+    pass
+
+class ServicioNoDisponibleError(SistemaFJError):
+    pass
+
+class ReservaError(SistemaFJError):
+    pass
+
+# ==========================================
+# CLASES ABSTRACTAS Y HERENCIA
+# ==========================================
+class EntidadGeneral (ABC):
+    def __init__ (self, id_entidad):
+        self._id_entidad= id_entidad
+        
+    @abstractmethod
+    def mostrar_info(self):
+        pass
+    
+class Servicio (EntidadGeneral):
+    def __init__(self, id_entidad, nombre, tarifa_base):
+        super().__init__(id_entidad)
+        self.nombre=nombre
+        self.tarifa_base=tarifa_base
+        self.disponible= True
+        
+    @abstractmethod
+    def calcular_costo(self, dias, descuento=0.0, impuesto=0.19):
+        pass
+    
+    @abstractmethod
+    def describir(self):
+        pass
+    
+    def validar_parámetros(self):
+        if self.tarifa_base <=0:
+            raise DatosInvalidosError( f'La tarifa base de {self.nombre} debe ser mayor a 0.')
+
+# ==========================================
+# POLIMORFISMO Y CLASES DERIVADAS
+# ==========================================        
+class Camara (Servicio):
+    def __init__(self, id_entidad, nombre, tarifa_base, resolucion):
+        super().__init__(id_entidad, nombre, tarifa_base)
+        self.resolucion=resolucion
+        
+    def calcular_costo(self, dias, descuento=0, impuesto=0.19):
+        subtotal= self.tarifa_base*dias
+        return subtotal-(subtotal*descuento)+(subtotal*impuesto)
+    
+    def describir(self):
+        return f'Cámara: {self.nombre} (Resolución: {self.resolucion})'
+    
+    def mostrar_info(self):
+        return self.describir()
+    
+class Equipos(Servicio):
+    def __init__(self, id_entidad, nombre, tarifa_base, potencia):
+        super().__init__(id_entidad, nombre, tarifa_base)
+        self.potencia=potencia  
+        
+    def calcular_costo(self, dias, descuento=0, impuesto=0.19, seguro=50000):
+        subtotal= (self.tarifa_base*dias)+ seguro
+        return subtotal-(subtotal*descuento)+(subtotal*impuesto)
+    
+    def describir(self):
+        return f'Equipo de sonido: {self.nombre} (Potencia: {self.potencia}W)'
+    
+    def mostrar_info(self):
+        return self.describir()
+    
+class Proyector(Servicio):
+    def __init__(self, id_entidad, nombre, tarifa_base, lumenes):
+        super().__init__(id_entidad, nombre, tarifa_base)
+        self.lumenes= lumenes
+        
+    def calcular_costo(self, dias, descuento=0, impuesto=0.19):
+        subtotal= self.tarifa_base*dias        
+        return subtotal-(subtotal*descuento)+(subtotal*impuesto)
+    
+    def describir(self):
+        return f'Proyector: {self.nombre} (Lumenes: {self.lumenes})'
+    
+    def mostrar_info(self):
+        return self.describir()
+    
+# ==========================================
+# ENCAPSULACIÓN ESTRICTA
+# ==========================================
+    
 class Cliente:
-    """
-    Clase Cliente: representa a un usuario del sistema.
-    Aplica encapsulación y validaciones de datos personales.
-    """
+    #Clase Cliente: representa a un usuario del sistema.
+    #Aplica encapsulación y validaciones de datos personales.
 
     def __init__(self, nombre: str, correo: str, telefono: str):
         try:
